@@ -14,6 +14,8 @@ abstract public class Kato_Chapter18 {
 	public void commonIntroduce() {
 		familyName = "加藤";
 		address = "東京都中野区〇×";
+		System.out.println("名前は" + familyName + "" + givenName + "です");
+		System.out.println("住所は" + address);
 	}
 	
 	//個別の紹介を出力する
@@ -22,8 +24,6 @@ abstract public class Kato_Chapter18 {
 	
 	//紹介を実行する
 	public void execIntroduce() {
-		System.out.println("名前は" + familyName + givenName + "です");
-		System.out.println("住所は" + address + "です");
 		eachIntroduce();
 		
 	}
