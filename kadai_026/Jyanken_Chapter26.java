@@ -73,8 +73,6 @@ public class Jyanken_Chapter26 {
 			} else {
 				System.out.println("自分の負けです");
 			}
-		}else {
-			System.out.println("無効な入力です");
 		}
 		}
 		
