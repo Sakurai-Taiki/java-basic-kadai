@@ -1,82 +1,67 @@
 package kadai_026;
 
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Jyanken_Chapter26 {
-	
+
 	//自分のじゃんけんの手を入力
-	public String getMyChoice(Scanner scanner) {
-		
-		System.out.println("自分のじゃんけんの手を入力しましょう");
-		System.out.println("グーはrockのrを入力しましょう");
-		System.out.println("チョキはscissorsのsを入力しましょう");
-		System.out.println("パーはpaperのpを入力しましょう");
-		
-		try {
-			String input = scanner.nextLine();
-			return input;
-		} catch  (InputMismatchException e) {
-			System.out.println("エラー：じゃんけんの指定の手を選択してください");
-			return "Error";
-		}
-		
-		
+	public String getMyChoice() {
+		    Scanner scanner = new Scanner(System.in);
+			System.out.println("自分のじゃんけんの手を入力しましょう");
+			System.out.println("グーはrockのrを入力しましょう");
+			System.out.println("チョキはscissorsのsを入力しましょう");
+			System.out.println("パーはpaperのpを入力しましょう");
+
+			//入力した内容を取得
+			String choice = scanner.nextLine();
+			
+			
+			//正しいじゃんけんの手であるか判定	
+		   while (!choice.equals("r") && !choice.equals("s") && !choice.equals("p")) {
+			   //じゃんけんの手が対象以外である場合
+			   System.out.println("正しく入力してください");
+			   choice = scanner.nextLine();
+		   }
+		   
+		   //じゃんけんクラスを実行するクラスにじゃんけんの手を返す
+		   return choice;
 	}
 	
-	//対戦相手のじゃんけんの手を乱数で選ぶ
+	
+	//対戦相手のじゃんけんの手をランダムで選ぶ
 	public String getRandom() {
-		//配列設定
-		String[] hand = {"r","s","p"};
-		//ハンド設定
-		String random = hand[(int) Math.floor(Math.random() * 3)];
-		//ハンドを返す
-		return random;		
+		//配列にじゃんけんの手をセット
+		String[] opponentChoice = {"r", "s", "p"};
+		//乱数で対戦相手のじゃんけんの手を選ぶ
+		int i = (int)(Math.random() * 3);
+		//対戦相手の手を返す
+		return opponentChoice[i];
 	}
 	
 	//じゃんけんを行う
 	public void playGame() {
-		try (Scanner scanner = new Scanner(System.in)){
-			//ハンドの定義
-			String myHand = getMyChoice(scanner);
-			String yourHand = getRandom();
-			
-			//じゃんけんの手をコレクション
-			HashMap<String, String> hand = new HashMap<String, String>();
-			hand.put("r", "グー");
-			hand.put("s", "チョキ");
-			hand.put("p", "パー");
-			
-			//手の出力
-			System.out.println("自分の手は" + hand.get(myHand) + "です");
-			System.out.println("相手の手は" + hand.get(yourHand) + "です");
-			
-			//じゃんけん結果の出力
-			if(myHand.equals(yourHand)) {
-				System.out.println("あいこです");
-			} else if (myHand.equals("r")) {
-				if(yourHand.equals("s")) {
-					System.out.println("自分の勝ちです");
-			} else {
-				System.out.println("自分の負けです");
-			}
-		}else if (myHand.equals("s")) {
-			if (yourHand.equals("p")) {
-				System.out.println("自分の勝ちです");
-			} else {
-				System.out.println("自分の負けです");
-			}
-		}else if (myHand.equals("p")) {
-			if(yourHand.equals("r")) {
-				System.out.println("自分の勝ちです");
-			} else {
-				System.out.println("自分の負けです");
-			}
-		}
-		}
+		HashMap<String,String> result = new HashMap<>();
 		
+		result.put("r", "グー");
+		result.put("s", "チョキ");
+		result.put("p", "パー");
+		
+		String myChoice = getMyChoice();
+		String opponentChoice = getRandom();
+		
+		//自分と対戦相手のじゃんけんの手を出力
+		System.out.println("自分の手は" + result.get(myChoice) + ",対戦相手の手は" + result.get(opponentChoice));
+		
+		//自分と対戦相手のじゃんけんの手を比較
+		if (myChoice.equals(opponentChoice)) {
+			System.out.println("あいこです");
+		}else if ((myChoice.equals("r") && opponentChoice.equals("s")) ||
+		          (myChoice.equals("s") && opponentChoice.equals("p")) ||
+		          (myChoice.equals("p") && opponentChoice.equals("r"))) {
+			System.out.println("自分の勝ちです");
+		}else {
+			System.out.println("自分の負けです");
+		}
 	}
-	
-	
 }
